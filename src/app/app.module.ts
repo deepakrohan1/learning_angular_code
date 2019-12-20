@@ -9,6 +9,9 @@ import { RecipieDetailComponent } from './recipies/recipie-detail/recipie-detail
 import { RecipieItemComponent } from './recipies/recipie-list/recipie-item/recipie-item.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
+import { LoggerHttpInterceptor } from './services/logger-http-interceptor';
+
 
 
 @NgModule({
@@ -24,9 +27,12 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
     FirstDirective
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: LoggerHttpInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
